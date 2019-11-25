@@ -20,7 +20,17 @@ def load_data(PATH,file_names):
 print(load_data(PATH, file_names))          # test
 
 def rm_exceptEng(dict_data):
-    pass
+    refinedoc = {}
+    for content in dict_data.items():
+        new_content = ""
+        for i in content[1]:
+            if i.isalpha() or i == " ":     # 알파벳과 공백 소문자로 변환
+                new_content += i.lower()
+            elif i == "\n":                 # 줄바꿈은 공백으로 치환, 다른 문자는 제거
+                new_content += " "          
+        refinedoc[content[0]] = new_content
+    return refinedoc
+print(rm_exceptEng(load_data(PATH, file_names)))        # test
 
 def get_splitDocs(dict_data):
     pass
