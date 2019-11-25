@@ -33,7 +33,11 @@ def rm_exceptEng(dict_data):
 print(rm_exceptEng(load_data(PATH, file_names)))        # test
 
 def get_splitDocs(dict_data):
-    pass
+    spdoc = {}
+    for content in dict_data.items():       # list로 split
+        spdoc[content[0]] = content[1].split()
+    return spdoc
+print(get_splitDocs(rm_exceptEng(load_data(PATH, file_names))))     # test
 
 def get_wordIndex(dict_data):
     pass
