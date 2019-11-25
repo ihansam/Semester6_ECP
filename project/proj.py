@@ -1,6 +1,6 @@
 from os import listdir
 
-PATH = './data/'
+PATH = './pracData/'                        # practice
 STOPWORD = "./stopword/stopwords.txt"
 file_names = listdir(PATH)
 variables={
@@ -12,7 +12,12 @@ variables={
 }
 
 def load_data(PATH,file_names):
-    pass
+    document = {}
+    for name in file_names:
+        with open(PATH+name, 'r') as f:     # make document dictionary
+            document[name[:-4]] = f.read()  # 파일 이름에서 .txt 제거 
+    return document
+print(load_data(PATH, file_names))          # test
 
 def rm_exceptEng(dict_data):
     pass
@@ -35,5 +40,4 @@ def main():
     variables['word_index'] = get_wordIndex(variables['split_docs'])
     #step2
     variables['word_freq'] = get_wordFreq(variables['word_index'], variables['split_docs'])
-    
     return variables
