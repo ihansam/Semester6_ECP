@@ -1,7 +1,7 @@
 from os import listdir
 
-PATH = './pracData/'                        # practice
-STOPWORD = "./prcaStop/stopwords.txt"       # practice
+PATH = './pracdata/'                        # practice
+STOPWORD = "./pstopword/stopwords.txt"       # practice
 file_names = listdir(PATH)
 variables={
     'documents':{},
@@ -17,7 +17,6 @@ def load_data(PATH,file_names):
         with open(PATH+name, 'r') as f:     
             document[name[:-4]] = f.read()  # 파일 이름에서 .txt 제거, file object read해 string value로 저장
     return document
-print(load_data(PATH, file_names))          # test
 
 def rm_exceptEng(dict_data):
     refinedoc = {}
@@ -30,14 +29,12 @@ def rm_exceptEng(dict_data):
                 new_content += " "          # (다른 문자는 제거)
         refinedoc[filename] = new_content
     return refinedoc
-print(rm_exceptEng(load_data(PATH, file_names)))        # test
 
 def get_splitDocs(dict_data):
     spldoc = {}
     for filename, filedata in dict_data.items():       # 소문자로 바꾸고 list로 split
         spldoc[filename] = filedata.lower().split()
     return spldoc
-print(get_splitDocs(rm_exceptEng(load_data(PATH, file_names))))     # test
 
 def get_wordIndex(dict_data):
     wordindex = {}
@@ -50,12 +47,13 @@ def get_wordIndex(dict_data):
                 wordindex[word] = index     # 그 단어를 key로, 현재 index를 value로 추가
                 index += 1
     return wordindex
-print(get_wordIndex(get_splitDocs(rm_exceptEng(load_data(PATH, file_names)))))      # test
 
 def get_wordFreq(dict_wordIndex, dict_data):
     wdfreq = {}
-
+    for filename, filewordlist in dict_data.items():
+        wdfreq[filename] = [filewordlist.count(keyword) for keyword in dict_wordIndex.keys()]
     return wdfreq
+print(get_wordFreq(get_wordIndex(get_splitDocs(rm_exceptEng(load_data(PATH, file_names)))), get_splitDocs(rm_exceptEng(load_data(PATH, file_names)))))
 
 def main():
     #step1
