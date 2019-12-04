@@ -62,7 +62,6 @@ def get_wordFreq(dict_wordIndex, dict_data):
             filewdfreq[word] = filewordlist.count(word)
         allwdfreq[filename] = filewdfreq
     return allwdfreq
-print(get_wordFreq(get_wordIndex(get_splitDocs(rm_exceptEng(load_data(PATH, file_names)))), get_splitDocs(rm_exceptEng(load_data(PATH, file_names)))))
 
 def main():
     #step1
@@ -73,3 +72,4 @@ def main():
     #step2
     variables['word_freq'] = get_wordFreq(variables['word_index'], variables['split_docs'])
     return variables
+print(main())
